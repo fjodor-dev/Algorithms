@@ -111,46 +111,106 @@ namespace Algorithms
         }
 
 
-        public static int[] QuickSort(int[] arr)
-        {
-            Random r = new Random();
-            int n = arr.Length, 
-            temp,
-            pivot = r.Next(0, n),
-            pivotVal = arr[pivot];
-            //Console.WriteLine(myArray[pivot]);
-            //for (int i = 0; i < 100; i++)
-            //{
 
-            //    pivot += r.Next(0, n);
-
-            //}
-            //pivot /= 100;
-            Console.WriteLine("pivot index:" + pivot + ", pivot vallue: " + pivotVal);
-            temp = arr[n-1];
-            arr[n-1] = arr[pivot];
-            arr[pivot] = temp;
-
-            int itemL, itemR;
-
-            int i = 0;
-            for (int j = 0; j < n-1; j++)
+        public static void QuickSort(int[] arr, int min, int max)
+        { 
+            if (min >= max)
             {
-               if(arr[j] < pivotVal)
+                return;
+            }
+
+            int temp;
+
+            //Random r = new Random();
+            //int pivot = r.Next(min, max);
+
+            //temp = arr[max];
+            //arr[max] = arr[pivot];
+            //arr[pivot] = temp;
+            
+            int i = min-1;
+            for (int j = min; j <= max; j++)
+            {
+               if(arr[j] < arr[max])
                {
                     i++;
                     temp = arr[j];
                     arr[j] = arr[i];
                     arr[i] = temp;
-                    Console.WriteLine($"swapt: {arr[i]} with: {arr[j]}");
-                }
-                
+               }
             }
+            temp = arr[++i];
+            arr[i] = arr[max];
+            arr[max] = temp;
 
-            Console.WriteLine(i);
-            return arr;
+            QuickSort(arr, min, i-1);
+            QuickSort(arr, i+1, max);
+
         }
 
+
+
+
+        public static void QuickSortPrint(int[] arr, int min, int max)
+        {
+            if (min >= max)
+            {
+                return;
+            }
+            Console.WriteLine();
+            Console.Write($"starting array: ");
+            for (int a = min; a <= max; a++)
+            {
+                Console.Write($"{arr[a]},");
+            }
+
+
+            Random r = new Random();
+            int
+            pivot = r.Next(min, max),
+            temp;
+            Console.WriteLine();
+            Console.WriteLine("pivot index:" + pivot + ", pivot vallue: " + arr[pivot] + "\n");
+            temp = arr[max];
+            arr[max] = arr[pivot];
+            arr[pivot] = temp;
+            //Program.printArray(arr);
+
+            int i = min - 1;
+            for (int j = min; j <= max; j++)
+            {
+
+                if (arr[j] < arr[max])
+                {
+                    i++;
+                    temp = arr[j];
+                    arr[j] = arr[i];
+                    arr[i] = temp;
+                    Console.WriteLine($"swapt: {arr[j]} with: {arr[i]}");
+                    Program.printArray(arr);
+                }
+            }
+            temp = arr[++i];
+            arr[i] = arr[max];
+            arr[max] = temp;
+
+            string arr1 = "";
+            string arr2 = "";
+            for (int a = min; a < i; a++)
+            {
+                arr1 += $"{arr[a]},";
+            }
+            for (int a = i + 1; a <= max; a++)
+            {
+                arr2 += $"{arr[a]},";
+            }
+
+            Console.WriteLine($"low({arr1}) ({arr[i]}) high({arr2}) ");
+            Console.WriteLine();
+            Console.WriteLine();
+            QuickSort(arr, min, i - 1);
+            QuickSort(arr, i + 1, max);
+        }
 
 
 

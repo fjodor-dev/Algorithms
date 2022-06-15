@@ -5,73 +5,72 @@ internal class Program
 {
     public static void Main()
     {
-        string result = "";
-
-        int[] myArray = new int[400000];
+        int[] myArray = new int[100000];
+        Random random = new Random();
 
         for (int i = 0; i < myArray.Length; i++)
         {
-            myArray[i] = i;
+            myArray[i] = random.Next(1,100);
         }
-        Random random = new Random();
-        myArray = myArray.OrderBy(x => random.Next()).ToArray();
+        Console.WriteLine($"made a Array of {myArray.Length} random items");
 
+        //myArray = myArray.OrderBy(x => random.Next()).ToArray();
 
+        //Console.WriteLine("original:");
         //printArray(myArray);
+
 
 
 
         int[] mySortArray1 = new int[myArray.Length];
         myArray.CopyTo(mySortArray1, 0);
-
         Stopwatch stopwatch1 = new Stopwatch();
         stopwatch1.Start();
-        //mySortArray1 = Sort.QuickSort(myArray);
+        Sort.QuickSort(mySortArray1, 0, mySortArray1.Length - 1);
         stopwatch1.Stop();
-
-        Console.WriteLine();
-        //printArray(mySortArray1);
-
-
+        Console.WriteLine("Elapsed Time for QuickSort is {0} ms", stopwatch1.ElapsedMilliseconds);
 
 
         int[] mySortArray2 = new int[myArray.Length];
         myArray.CopyTo(mySortArray2, 0);
-        
         Stopwatch stopwatch2 = new Stopwatch();
         stopwatch2.Start();
-        mySortArray2 = Sort.SelectionSort(mySortArray2);
+        Sort.SelectionSort(mySortArray2);
         stopwatch2.Stop();
-
-
+        Console.WriteLine("Elapsed Time for SelectionSort is {0} ms", stopwatch2.ElapsedMilliseconds);
 
 
         int[] mySortArray3 = new int[myArray.Length];
         myArray.CopyTo(mySortArray3, 0);
         Stopwatch stopwatch3 = new Stopwatch();
         stopwatch3.Start();
-        mySortArray3 = Sort.BubbleSort(mySortArray3);
+        Sort.BubbleSort(mySortArray3);
         stopwatch3.Stop();
-        
-
-        //Console.WriteLine("Elapsed Time 1 is {0} ms", stopwatch.ElapsedMilliseconds);
-        Console.WriteLine("Elapsed Time 2 is {0} ms", stopwatch2.ElapsedMilliseconds);
-        Console.WriteLine("Elapsed Time 3 is {0} ms", stopwatch3.ElapsedMilliseconds);
+        Console.WriteLine("Elapsed Time for BubbleSort is {0} ms", stopwatch3.ElapsedMilliseconds);
 
 
 
+        //printArray(mySortArray1);
+        //printArray(mySortArray2);
+        //printArray(mySortArray3);
 
 
-        void printArray(int[] arr)
+
+
+
+
+    }
+
+
+    public static void printArray(int[] arr)
+    {
+        string result = "\n";
+        for (int i = 0; i < arr.Length; i++)
         {
-            result = "";
-            for (int i = 0; i < arr.Length; i++)
-            {
-                result += arr[i] + ",\n";
-            }
-            Console.WriteLine(result);
-            Console.WriteLine("----------------------------------------------------------");
+            result += arr[i] + ",";
         }
+        Console.WriteLine(result);
+        Console.WriteLine("----------------------------------------------------------");
     }
 
 }
